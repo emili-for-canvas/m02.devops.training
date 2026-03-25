@@ -25,6 +25,7 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
+            - sudo apt install python3.12-venv
             - python -m venv .venv
             - source .venv/bin/activate
             - pip install pytest requests flask coverage locust
