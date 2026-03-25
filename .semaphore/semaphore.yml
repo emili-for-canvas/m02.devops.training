@@ -33,5 +33,6 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - cd 1-tdd && python -m pytest test_factorial.py -v
+            - cd 1-tdd
+            - pytest
             - cd 2-unit-testing && python -m pytest test_math_sum.py -v
