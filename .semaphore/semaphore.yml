@@ -57,3 +57,13 @@ blocks:
         - name: DB
           commands:
             - cd 10-database-testing && python -m pytest test_database.py -v
+  - name: E2E
+    dependencies:
+      - Integration
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - cd 4-e2e && nohup python app.py &
+            - sleep 3
+            - python -m pytest test_e2e.py -v
