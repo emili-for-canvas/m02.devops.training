@@ -17,10 +17,10 @@ global_job_config:
     commands:
       - checkout
       - cache restore venv
-      - FILE=".venv/Scripts/activate"
+      - FILE=".venv/vin/activate"
       - 'if [ -e "$FILE" ]; then'
       - echo "File exists (any type)."
-      - source .venv/Scripts/activate
+      - source $FILE
       - fi
 blocks:
   - name: Install Dependencies
@@ -30,7 +30,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - python -m venv .venv
-            - source .venv/Scripts/activate
+            - source .venv/bin/activate
             - pip install pytest requests flask coverage locust
             - cache store venv .venv
   - name: Unit
