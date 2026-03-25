@@ -16,8 +16,10 @@ global_job_config:
   prologue:
     commands:
       - checkout
-      - cache restore venv
-      - pwd
+      - mkdir -p .pip_cache
+      - cache restore
+      - pip install --cache-dir .pip_cache -r requirements.txt
+      - cache store
 blocks:
   - name: Install Dependencies
     dependencies: []
@@ -25,11 +27,9 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - sudo apt install python3.12-venv
-            - python -m venv .venv
-            - source .venv/bin/activate
-            - pip install pytest requests flask coverage locust
-            - cache store venv .venv
+            - cache restore
+            - pip install --cache-dir .pip_cache -r requirements.txt
+            - cache store
   - name: Unit
     dependencies:
       - Install Dependencies
@@ -39,6 +39,8 @@ blocks:
           commands:
             - cd 1-tdd
             - pytest
+        - name: 'Job #2'
+          commands:
             - cd 2-unit-testing && python -m pytest test_math_sum.py -v
       prologue:
         commands:
