@@ -17,6 +17,7 @@ global_job_config:
     commands:
       - checkout
       - pip install -r requirements.txt
+      - 'export PATH=$PATH:/home/semaphore/.local/bin'
 blocks:
   - name: Install Dependencies
     dependencies: []
