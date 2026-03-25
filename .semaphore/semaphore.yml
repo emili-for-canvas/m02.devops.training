@@ -35,11 +35,25 @@ blocks:
       - Install Dependencies
     task:
       jobs:
-        - name: 'Job #1'
+        - name: TDD
           commands:
             - cd 1-tdd
             - pytest
-        - name: 'Job #2'
+        - name: UNIT
           commands:
             - cd 2-unit-testing
             - pytest test_math_sum.py -v
+  - name: Integration
+    dependencies:
+      - Unit
+    task:
+      jobs:
+        - name: INT
+          commands:
+            - cd 3-integration-testing && python -m pytest test_integration.py -v
+        - name: MOCK
+          commands:
+            - cd 6-mocking && python -m pytest test_weather_service.py -v
+        - name: DB
+          commands:
+            - cd 10-database-testing && python -m pytest test_database.py -v
