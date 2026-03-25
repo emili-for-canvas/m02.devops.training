@@ -42,6 +42,3 @@ blocks:
         - name: 'Job #2'
           commands:
             - cd 2-unit-testing && python -m pytest test_math_sum.py -v
-      prologue:
-        commands:
-          - source .venv/bin/activate
