@@ -20,3 +20,12 @@ blocks:
         - name: 'Job #1'
           commands:
             - pip install pytest requests flask coverage locust
+  - name: Unit
+    dependencies:
+      - Install Dependencies
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - cd 1-tdd && python -m pytest test_factorial.py -v
+            - cd 2-unit-testing && python -m pytest test_math_sum.py -v
