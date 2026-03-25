@@ -19,7 +19,7 @@ global_job_config:
       - cache restore venv
       - pwd
       - FILE=".venv/vin/activate"
-      - 'if [ -f "$FILE" ]; then'
+      - 'if [[ -f "$FILE" ]]; then'
       - echo "File exists (any type)."
       - source $FILE
       - fi
