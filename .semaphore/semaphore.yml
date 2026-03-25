@@ -16,8 +16,12 @@ global_job_config:
   prologue:
     commands:
       - checkout
-      - pip install -r requirements.txt
-      - 'export PATH=$PATH:/home/semaphore/.local/bin'
+      - cache restore venv
+      - FILE=".venv/Scripts/activate"
+      - 'if [ -e "$FILE" ]; then'
+      - echo "File exists (any type)."
+      - source .venv/Scripts/activate
+      - fi
 blocks:
   - name: Install Dependencies
     dependencies: []
@@ -25,7 +29,10 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
+            - python -m venv .venv
+            - source .venv/Scripts/activate
             - pip install pytest requests flask coverage locust
+            - cache store venv .venv
   - name: Unit
     dependencies:
       - Install Dependencies
