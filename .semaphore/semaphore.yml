@@ -19,7 +19,7 @@ global_job_config:
       - mkdir -p .pip_cache
       - cache restore
       - pip install --cache-dir .pip_cache -r requirements.txt
-      - cache store
+      - 'export PATH=$PATH:/home/semaphore/.local/bin'
 blocks:
   - name: Install Dependencies
     dependencies: []
@@ -41,4 +41,5 @@ blocks:
             - pytest
         - name: 'Job #2'
           commands:
-            - cd 2-unit-testing && python -m pytest test_math_sum.py -v
+            - cd 2-unit-testing
+            - pytest test_math_sum.py -v
